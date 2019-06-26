@@ -30,13 +30,13 @@ public class Language{
       this.person = persons;
    }
    
-   private LanguageName name;
+   private String name;
 
-public void setName(LanguageName value) {
+public void setName(String value) {
     this.name = value;
 }
 @Id
-public LanguageName getName() {
+public String getName() {
     return this.name;
 }
 }

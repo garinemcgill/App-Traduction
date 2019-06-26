@@ -74,12 +74,12 @@ public void setId(Integer value) {
 public Integer getId() {
     return this.id;
 }
-private Department department;
+private String department;
 
-public void setDepartment(Department value) {
+public void setDepartment(String value) {
     this.department = value;
 }
-public Department getDepartment() {
+public String getDepartment() {
     return this.department;
 }
 }
