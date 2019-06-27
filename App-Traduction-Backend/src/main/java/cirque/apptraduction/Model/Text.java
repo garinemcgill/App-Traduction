@@ -9,15 +9,28 @@ import javax.persistence.Id;
 @Entity
 public class Text{
 	
-	private Audio correspondingAudio;
+	private Audio matchingAudio;
 
 	@OneToOne
-	public Audio getCorrespondingAudio() {
-		return this.correspondingAudio;
+	public Audio getMatchingAudio() {
+		return this.matchingAudio;
 	}
 
-	public void setCorrespondingAudio(Audio correspondingAudio) {
-		this.correspondingAudio = correspondingAudio;
+	public void setMatchingAudio(Audio matchingAudio) {
+		this.matchingAudio = matchingAudio;
+	}
+	
+	
+	
+	private Text translatedText;
+
+	@OneToOne(mappedBy="translatedText" )
+	public Text getTranslatedText() {
+		return this.translatedText;
+	}
+
+	public void setTranslatedText(Text translatedText) {
+		this.translatedText = translatedText;
 	}
 
 	
