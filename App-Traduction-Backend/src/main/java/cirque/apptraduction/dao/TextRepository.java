@@ -1,5 +1,12 @@
 package cirque.apptraduction.dao;
 
-public interface TextRepository {
+import org.springframework.data.repository.CrudRepository;
 
+import cirque.apptraduction.Model.*;
+
+public interface TextRepository extends CrudRepository <Text, Integer>{
+
+	Text findTextById(int id);
+	boolean existsById(int id);
+	
 }
