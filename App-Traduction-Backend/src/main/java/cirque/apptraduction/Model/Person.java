@@ -35,31 +35,57 @@ public class Person{
 	public void setLanguage(Language language) {
 		this.language = language;
 	}
-
 	
 	
-	private Set<Text> text;
+	
+	private Set<Audio> originalAudio;
 
 	@OneToMany(mappedBy="person" , cascade={CascadeType.ALL})
-	public Set<Text> getText() {
-		return this.text;
+	public Set<Audio> getOriginalAudio() {
+		return this.originalAudio;
 	}
 
-	public void setText(Set<Text> texts) {
-		this.text = texts;
+	public void setOriginalAudio(Set<Audio> originalAudios) {
+		this.originalAudio = originalAudios;
 	}
 
 	
 	
-	private Set<Audio> audio;
+	private Set<Text> originalText;
 
 	@OneToMany(mappedBy="person" , cascade={CascadeType.ALL})
-	public Set<Audio> getAudio() {
-		return this.audio;
+	public Set<Text> getOriginalText() {
+		return this.originalText;
 	}
 
-	public void setAudio(Set<Audio> audios) {
-		this.audio = audios;
+	public void setOriginalText(Set<Text> originalTexts) {
+		this.originalText = originalTexts;
+	}
+	
+	
+	
+	private Set<Text> translatedText;
+
+	@OneToMany(mappedBy="person" , cascade={CascadeType.ALL})
+	public Set<Text> getTranslatedText() {
+		return this.translatedText;
+	}
+
+	public void setTranslatedText(Set<Text> translatedTexts) {
+		this.translatedText = translatedTexts;
+	}
+	
+	
+	
+	private Set<Audio> translatedAudio;
+
+	@OneToMany(mappedBy="person" , cascade={CascadeType.ALL})
+	public Set<Audio> getTranslatedAudio() {
+		return this.translatedAudio;
+	}
+
+	public void setTranslatedAudio(Set<Audio> translatedAudios) {
+		this.translatedAudio = translatedAudios;
 	}
 
 	
