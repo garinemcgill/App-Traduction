@@ -59,13 +59,13 @@ public class Text{
 	
 	
 	
-	private Boolean isSentByPerson;
+	private Boolean isOriginal;
 
-	public void setIsSentByPerson(Boolean value) {
-		this.isSentByPerson = value;
+	public void setIsOriginal(Boolean value) {
+		this.isOriginal = value;
 	}
-	public Boolean getIsSentByPerson() {
-		return this.isSentByPerson;
+	public Boolean getIsOriginal() {
+		return this.isOriginal;
 	}
 	
 }

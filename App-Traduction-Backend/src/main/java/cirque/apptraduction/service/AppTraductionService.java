@@ -157,20 +157,20 @@ public class AppTraductionService {
 	}
 	
 	@Transactional
-	public Audio createAudio(String message, Boolean isSent, Person person) {
+	public Audio createAudio(String message, Boolean isOriginal, Person person) {
 		Audio audio = new Audio();
 		audio.setMessage(message);
-		audio.setIsSentByPerson(isSent);
+		audio.setIsOriginal(isOriginal);
 		audio.setPerson(person);
 		audioRepository.save(audio);
 		return audio;
 	}
 	
 	@Transactional
-	public Text createText(String message, Boolean isSent, Person person) {
+	public Text createText(String message, Boolean isOriginal, Person person) {
 		Text text = new Text();
 		text.setMessage(message);
-		text.setIsSentByPerson(isSent);
+		text.setIsOriginal(isOriginal);
 		text.setPerson(person);
 		textRepository.save(text);
 		return text;
