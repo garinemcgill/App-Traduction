@@ -262,8 +262,93 @@ public class AppTraductionService {
 	
 	
 	
+	//*************************************************************************************************************//
+	//************************************************GET METHODS**************************************************//
+	//*************************************************************************************************************//
 	
 	
+	/* Gets the TraductionAppManager */
+	@Transactional
+	public TraductionAppManager getManager() {
+		return toList(managerRepository.findAll()).get(0);
+	}
+
+	
+	/*Gets a language with its name*/
+	@Transactional
+	public Language getLanguage(String name) {
+		Language language = languageRepository.findLanguageByName(name);
+		return language;		
+	}
+
+	
+	/* Gets all audios */
+	@Transactional
+	public List<Audio> getAllAudios() {
+		return toList(audioRepository.findAll());
+	}
+	
+	
+	/* Gets all conversations */
+	@Transactional
+	public List<Conversation> getAllConversations() {
+		return toList(conversationRepository.findAll());
+	}
+	
+	
+	/* Gets all languages */
+	@Transactional
+	public List<Language> getAllLanguages() {
+		return toList(languageRepository.findAll());
+	}
+	
+	
+	/* Gets all persons */
+	@Transactional
+	public List<Person> getAllPersons() {
+		return toList(personRepository.findAll());
+	}
+	
+	
+	/* Gets all surveys */
+	@Transactional
+	public List<Survey> getAllSurveys() {
+		return toList(surveyRepository.findAll());
+	}
+	
+	
+	/* Gets all texts */
+	@Transactional
+	public List<Text> getAllTexts() {
+		return toList(textRepository.findAll());
+	}
+	
+	
+	
+	
+	
+	
+	//TODO get methods but with specifics (ex get all translated audios, or get all audios for this person)
+	
+	
+	
+	
+	
+	
+	
+	//*************************************************************************************************************//
+	//********************************************INTERMEDIATE METHODS*********************************************//
+	//*************************************************************************************************************//
+	
+	
+	/* Transforms iterable list into arrayList */
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
+	}
 	
 	
 }
