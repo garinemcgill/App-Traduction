@@ -1,6 +1,8 @@
 package cirque.apptraduction.Model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
@@ -36,6 +38,7 @@ public void setId(Integer value) {
     this.id = value;
 }
 @Id
+@GeneratedValue
 public Integer getId() {
     return this.id;
 }
