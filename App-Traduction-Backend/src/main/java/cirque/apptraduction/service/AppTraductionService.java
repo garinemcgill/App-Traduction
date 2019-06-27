@@ -156,23 +156,106 @@ public class AppTraductionService {
 		return survey;
 	}
 	
+	
+	/* Creates original audio (audio that was spoken by a real person)
+	 * 		added to original audio list in person */
 	@Transactional
-	public Audio createAudio(String message, Boolean isOriginal, Person person) {
+	public Audio createOriginalAudio(String message, Person person) {
 		Audio audio = new Audio();
 		audio.setMessage(message);
-		audio.setIsOriginal(isOriginal);
 		audio.setPerson(person);
+		audio.setIsOriginal(true);
 		audioRepository.save(audio);
+		
+		Set<Audio> newAudios = person.getOriginalAudio();
+		if(newAudios == null) {
+			newAudios = new HashSet<Audio>();
+		}
+		newAudios.add(audio);
+		person.setOriginalAudio(newAudios);
+		personRepository.save(person);
+		
 		return audio;
 	}
 	
+	
+	/* Creates translated audio (audio that was synthesized by AI engine)
+	 * 		added to translated audio list in person
+	 * 		matched with corresponding translated text */
 	@Transactional
-	public Text createText(String message, Boolean isOriginal, Person person) {
+	public Audio createTranslatedAudio(String message, Person person, Text matchingText) {
+		Audio audio = new Audio();
+		audio.setMessage(message);
+		audio.setPerson(person);
+		audio.setIsOriginal(false);
+		audio.setMatchingText(matchingText);
+		audioRepository.save(audio);
+		
+		matchingText.setMatchingAudio(audio);
+		textRepository.save(matchingText);
+		
+		Set<Audio> newAudios = person.getTranslatedAudio();
+		if(newAudios == null) {
+			newAudios = new HashSet<Audio>();
+		}
+		newAudios.add(audio);
+		person.setTranslatedAudio(newAudios);
+		personRepository.save(person);
+		
+		return audio;
+	}
+	
+	
+	/* Creates original text (text that was transcribed from original audio)
+	 * 		added to original text list in person
+	 * 		matched with corresponding original audio */
+	@Transactional
+	public Text createOriginalText(String message, Person person, Audio matchingAudio) {
 		Text text = new Text();
 		text.setMessage(message);
-		text.setIsOriginal(isOriginal);
 		text.setPerson(person);
+		text.setIsOriginal(true);
+		text.setMatchingAudio(matchingAudio);
 		textRepository.save(text);
+		
+		matchingAudio.setMatchingText(text);
+		audioRepository.save(matchingAudio);
+		
+		Set<Text> newTexts = person.getOriginalText();
+		if(newTexts == null) {
+			newTexts = new HashSet<Text>();
+		}
+		newTexts.add(text);
+		person.setOriginalText(newTexts);
+		personRepository.save(person);
+		
+		return text;
+	}
+	
+	
+	/* Creates translated text (from original text)
+	 * 		added to translated text list in person
+	 * 		matched with corresponding original text */
+	@Transactional
+	public Text createTranslatedText(String message, Person person, Text originalText) {
+		Text text = new Text();
+		text.setMessage(message);
+		text.setPerson(person);
+		text.setIsOriginal(false);
+		text.setTranslatedText(originalText);
+		textRepository.save(text);
+		
+		originalText.setTranslatedText(text);
+		textRepository.save(originalText);
+		
+		Set<Text> newTexts = person.getTranslatedText();
+		if(newTexts == null) {
+			newTexts = new HashSet<Text>();
+		}
+		newTexts.add(text);
+		person.setTranslatedText(newTexts);
+		personRepository.save(person);
+		
 		return text;
 	}
 	
