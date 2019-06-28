@@ -327,6 +327,59 @@ public class AppTraductionService {
 	}
 	
 
+	/* Gets all original audios */
+	@Transactional
+	public List<Audio> getAllOriginalAudios() {
+		List<Audio> allAudios = toList(audioRepository.findAll());
+		List<Audio> allOriginalAudios = new ArrayList<Audio>();
+		for (Audio audio : allAudios) {
+			if (audio.getIsOriginal() == true)
+				allOriginalAudios.add(audio);
+		}
+		return allOriginalAudios;
+	}
+	
+	
+	/* Gets all translated audios */
+	@Transactional
+	public List<Audio> getAllTranslatedAudios() {
+		List<Audio> allAudios = toList(audioRepository.findAll());
+		List<Audio> allTranslatedAudios = new ArrayList<Audio>();
+		for (Audio audio : allAudios) {
+			if (audio.getIsOriginal() == false)
+				allTranslatedAudios.add(audio);
+		}
+		return allTranslatedAudios;
+	}
+	
+	
+	/* Gets all original texts */
+	@Transactional
+	public List<Text> getAllOriginalTexts() {
+		List<Text> allTexts = toList(textRepository.findAll());
+		List<Text> allOriginalTexts = new ArrayList<Text>();
+		for (Text text : allTexts) {
+			if (text.getIsOriginal() == true)
+				allOriginalTexts.add(text);
+		}
+		return allOriginalTexts;
+	}
+	
+	
+	/* Gets all translated texts */
+	@Transactional
+	public List<Text> getAllTranslatedTexts() {
+		List<Text> allTexts = toList(textRepository.findAll());
+		List<Text> allTranslatedTexts = new ArrayList<Text>();
+		for (Text text : allTexts) {
+			if (text.getIsOriginal() == false)
+				allTranslatedTexts.add(text);
+		}
+		return allTranslatedTexts;
+	}
+	
+	
+	
 	
 	
 	//*************************************************************************************************************//
