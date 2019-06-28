@@ -24,7 +24,7 @@ public class Text{
 	
 	private Text translatedText;
 
-	@OneToOne(mappedBy="translatedText" )
+	@OneToOne
 	public Text getTranslatedText() {
 		return this.translatedText;
 	}
