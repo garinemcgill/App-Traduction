@@ -323,17 +323,7 @@ public class AppTraductionService {
 		return toList(textRepository.findAll());
 	}
 	
-	
-	
-	
-	
-	
-	//TODO get methods but with specifics (ex get all translated audios, or get all audios for this person)
-	
-	
-	
-	
-	
+
 	
 	
 	//*************************************************************************************************************//
