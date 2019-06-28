@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -83,6 +84,9 @@ public class AppTraductionServiceTests {
 		List<Conversation> allConversations = service.getAllConversations();
 		assertEquals(1, allConversations.size());
 		assertEquals(withGoogle, allConversations.get(0).getWithGoogle());
+		
+		Set<Conversation> managerConversations = manager.getConversation();
+		assertEquals(1, managerConversations.size());
 	}
 	
 	
@@ -158,6 +162,11 @@ public class AppTraductionServiceTests {
 		List<Language> allLanguages = service.getAllLanguages();
 		assertEquals(1, allLanguages.size());
 		assertEquals(name, allLanguages.get(0).getName());
+		
+		Set<Language> managerLanguages = manager.getLanguage();
+		assertEquals(1, managerLanguages.size());
+		assertEquals(name, service.toList(managerLanguages).get(0).getName());
+		
 	}
 	
 	
@@ -256,6 +265,11 @@ public class AppTraductionServiceTests {
 		List<Person> allPersons = service.getAllPersons();
 		assertEquals(1, allPersons.size());
 		assertEquals(department, allPersons.get(0).getDepartment());
+		
+		Set<Person> conversationPersons = conversation.getPerson();
+		assertEquals(1, conversationPersons.size());
+		Set<Person> languagePersons = language.getPerson();
+		assertEquals(1, languagePersons.size());
 	}
 	
 	
