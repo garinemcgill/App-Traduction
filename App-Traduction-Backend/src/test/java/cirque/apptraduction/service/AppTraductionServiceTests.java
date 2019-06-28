@@ -319,4 +319,77 @@ public class AppTraductionServiceTests {
 		assertEquals(0, allPersons.size());
 		assertEquals(error, "The department cannot be null or empty");
 	}
+	
+	
+	
+	
+	//*************************************************************************************************************//
+	//************************************************SURVEY TESTS*************************************************//
+	//*************************************************************************************************************//
+	
+	@Test
+	public void testCreateSurvey() {
+		assertEquals(0, service.getAllSurveys().size());
+		
+		TraductionAppManager manager = service.createTraductionAppManager();
+		
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
+		Date date = new Date(c.getTimeInMillis());
+		Time time = new Time(c.getTimeInMillis());
+		Boolean withGoogle = true;
+		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		
+		String name = "English";
+		Language language = service.createLanguage(name, manager);
+
+		String department = "TI";
+		Person person = service.createPerson(department, conversation, language);
+		
+		Integer helpsWork = 2, replacesService = 6, rating = 5;
+		
+		try {
+			service.createSurvey(helpsWork, replacesService, rating, person);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		List<Survey> allSurveys = service.getAllSurveys();
+		assertEquals(1, allSurveys.size());
+		assertEquals(rating, allSurveys.get(0).getRating());
+	}
+	
+	@Test
+	public void testCreateSurveyNegativeRating() {
+		assertEquals(0, service.getAllSurveys().size());
+		
+		TraductionAppManager manager = service.createTraductionAppManager();
+		
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
+		Date date = new Date(c.getTimeInMillis());
+		Time time = new Time(c.getTimeInMillis());
+		Boolean withGoogle = true;
+		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		
+		String name = "English";
+		Language language = service.createLanguage(name, manager);
+
+		String department = "TI";
+		Person person = service.createPerson(department, conversation, language);
+		
+		Integer helpsWork = 2, replacesService = 6, rating = -5;
+		String error = null;
+		
+		try {
+			service.createSurvey(helpsWork, replacesService, rating, person);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		
+		List<Survey> allSurveys = service.getAllSurveys();
+		assertEquals(0, allSurveys.size());
+		assertEquals(error, "Ratings cannot be negative");
+	}
+	
 }
