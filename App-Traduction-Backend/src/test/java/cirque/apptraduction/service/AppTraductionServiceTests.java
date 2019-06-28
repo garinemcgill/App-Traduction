@@ -371,7 +371,11 @@ public class AppTraductionServiceTests {
 		List<Survey> allSurveys = service.getAllSurveys();
 		assertEquals(1, allSurveys.size());
 		assertEquals(rating, allSurveys.get(0).getRating());
+		
+		Survey personSurvey = person.getSurvey();
+		assertEquals(rating, personSurvey.getRating());
 	}
+	
 	
 	@Test
 	public void testCreateSurveyNegativeRating() {
@@ -448,6 +452,11 @@ public class AppTraductionServiceTests {
 		List<Audio> allTranslatedAudios = service.getAllTranslatedAudios();
 		assertEquals(0, allTranslatedAudios.size());
 		assertEquals(message, allOriginalAudios.get(0).getMessage());
+		
+		Set<Audio> personAudioSet = person.getOriginalAudio();
+		List<Audio> personAudio = service.toList(personAudioSet);
+		assertEquals(1, personAudio.size());
+		assertEquals(message, personAudio.get(0).getMessage());
 	}
 	
 	
@@ -489,6 +498,13 @@ public class AppTraductionServiceTests {
 		List<Text> allTranslatedTexts = service.getAllTranslatedTexts();
 		assertEquals(0, allTranslatedTexts.size());
 		assertEquals(textMessage, allOriginalTexts.get(0).getMessage());
+		
+		Set<Text> personTextSet = person.getOriginalText();
+		List<Text> personText = service.toList(personTextSet);
+		assertEquals(1, personText.size());
+		assertEquals(textMessage, personText.get(0).getMessage());
+		assertEquals(audio.getMessage(), personText.get(0).getMatchingAudio().getMessage());
+		assertEquals(audio.getMatchingText().getMessage(), personText.get(0).getMessage());
 	}
 	
 	
@@ -534,6 +550,13 @@ public class AppTraductionServiceTests {
 		List<Text> allTranslatedTexts = service.getAllTranslatedTexts();
 		assertEquals(1, allTranslatedTexts.size());
 		assertEquals(translatedMessage, allTranslatedTexts.get(0).getMessage());
+		
+		Set<Text> personTextSet = person.getTranslatedText();
+		List<Text> personText = service.toList(personTextSet);
+		assertEquals(1, personText.size());
+		assertEquals(translatedMessage, personText.get(0).getMessage());
+		assertEquals(originalText.getMessage(), personText.get(0).getTranslatedText().getMessage());
+		assertEquals(originalText.getTranslatedText().getMessage(), personText.get(0).getMessage());
 	}
 	
 	
@@ -582,5 +605,12 @@ public class AppTraductionServiceTests {
 		List<Audio> allTranslatedAudios = service.getAllTranslatedAudios();
 		assertEquals(1, allTranslatedAudios.size());
 		assertEquals(translatedAudio, allTranslatedAudios.get(0).getMessage());
+		
+		Set<Audio> personAudioSet = person.getTranslatedAudio();
+		List<Audio> personAudio = service.toList(personAudioSet);
+		assertEquals(1, personAudio.size());
+		assertEquals(translatedAudio, personAudio.get(0).getMessage());
+		assertEquals(translatedText.getMessage(), personAudio.get(0).getMatchingText().getMessage());
+		assertEquals(translatedText.getMatchingAudio().getMessage(), personAudio.get(0).getMessage());
 	}
 }
