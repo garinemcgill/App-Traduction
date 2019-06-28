@@ -5,7 +5,6 @@ import static org.junit.Assert.fail;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -69,78 +68,27 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		
 		try {
-			service.createConversation(date, time, withGoogle, manager);
+			service.createConversation(manager);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 		
 		List<Conversation> allConversations = service.getAllConversations();
 		assertEquals(1, allConversations.size());
-		assertEquals(withGoogle, allConversations.get(0).getWithGoogle());
+		assertEquals(true, allConversations.get(0).getWithGoogle());
 		
 		Set<Conversation> managerConversations = manager.getConversation();
 		assertEquals(1, managerConversations.size());
-	}
-	
-	
-	@Test
-	public void testCreateConversationNullDate() {
-		assertEquals(0, service.getAllConversations().size());
 		
-		TraductionAppManager manager = service.createTraductionAppManager();
-		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Date date = null;
-		
-		String error = null;
-		try {
-			service.createConversation(date, time, withGoogle, manager);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
+		if (allConversations.get(0).getDate() == null) {
+			fail();
 		}
-		
-		assertEquals(error, "The date and time cannot be null");
-		List<Conversation> allConversations = service.getAllConversations();
-		assertEquals(0, allConversations.size());
-	}
-	
-	
-	@Test
-	public void testCreateConversationNullTime() {
-		assertEquals(0, service.getAllConversations().size());
-		
-		TraductionAppManager manager = service.createTraductionAppManager();
-		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Time time = null;
-		
-		String error = null;
-		try {
-			service.createConversation(date, time, withGoogle, manager);
-		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
+		if (allConversations.get(0).getTime() == null) {
+			fail();
 		}
-		
-		assertEquals(error, "The date and time cannot be null");
-		List<Conversation> allConversations = service.getAllConversations();
-		assertEquals(0, allConversations.size());
 	}
-	
-	
-	
+		
 	
 	//*************************************************************************************************************//
 	//***********************************************LANGUAGE TESTS************************************************//
@@ -244,12 +192,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);
@@ -279,12 +222,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);
@@ -310,12 +248,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);
@@ -347,12 +280,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);
@@ -383,12 +311,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);
@@ -424,12 +347,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);
@@ -467,12 +385,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);
@@ -516,12 +429,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);
@@ -568,12 +476,7 @@ public class AppTraductionServiceTests {
 		
 		TraductionAppManager manager = service.createTraductionAppManager();
 		
-		Calendar c = Calendar.getInstance();
-		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
-		Date date = new Date(c.getTimeInMillis());
-		Time time = new Time(c.getTimeInMillis());
-		Boolean withGoogle = true;
-		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		Conversation conversation = service.createConversation(manager);
 		
 		String name = "English";
 		Language language = service.createLanguage(name, manager);

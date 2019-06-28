@@ -3,6 +3,7 @@ package cirque.apptraduction.service;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -78,16 +79,19 @@ public class AppTraductionService {
 	
 	
 	/*Creates conversation
+	 * 		uses current date and time and chooses between Amazon and Google engines
 	 * 		adds conversation to list in manager */
 	@Transactional
-	public Conversation createConversation(Date date, Time time, Boolean withGoogle, TraductionAppManager manager) {
-		if(date == null || time == null) {
-			throw new IllegalArgumentException("The date and time cannot be null");
-		}
+	public Conversation createConversation(TraductionAppManager manager) {
 		Conversation conversation = new Conversation();
+		
+		Date date = new Date(System.currentTimeMillis());
 		conversation.setDate(date);
+		Time time = new Time(System.currentTimeMillis());
 		conversation.setTime(time);
-		conversation.setWithGoogle(withGoogle);
+		
+		conversation.setWithGoogle(chooseWithGoogle());
+		
 		conversation.setTraductionAppManager(manager);
 		conversationRepository.save(conversation);
 		
@@ -394,6 +398,13 @@ public class AppTraductionService {
 			resultList.add(t);
 		}
 		return resultList;
+	}
+	
+	
+	/* TO BE CHANGED ONCE AMAZON ACCOUNT HAS BEEN CREATED
+	 *		Chooses between Amazon and Google*/
+	public Boolean chooseWithGoogle() {
+		return true;
 	}
 	
 	
