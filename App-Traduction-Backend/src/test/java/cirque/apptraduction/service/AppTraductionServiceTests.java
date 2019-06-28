@@ -392,4 +392,181 @@ public class AppTraductionServiceTests {
 		assertEquals(error, "Ratings cannot be negative");
 	}
 	
+	
+	
+	
+	//*************************************************************************************************************//
+	//********************************************AUDIO AND TEXT TESTS*********************************************//
+	//*************************************************************************************************************//
+	
+	@Test
+	public void testCreateOriginalAudio() {
+		assertEquals(0, service.getAllAudios().size());
+		assertEquals(0, service.getAllOriginalAudios().size());
+		
+		TraductionAppManager manager = service.createTraductionAppManager();
+		
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
+		Date date = new Date(c.getTimeInMillis());
+		Time time = new Time(c.getTimeInMillis());
+		Boolean withGoogle = true;
+		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		
+		String name = "English";
+		Language language = service.createLanguage(name, manager);
+
+		String department = "TI";
+		Person person = service.createPerson(department, conversation, language);
+		
+		String message = "blablabla";
+		
+		try {
+			service.createOriginalAudio(message, person);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		List<Audio> allAudios = service.getAllAudios();
+		assertEquals(1, allAudios.size());
+		List<Audio> allOriginalAudios = service.getAllOriginalAudios();
+		assertEquals(1, allOriginalAudios.size());
+		List<Audio> allTranslatedAudios = service.getAllTranslatedAudios();
+		assertEquals(0, allTranslatedAudios.size());
+		assertEquals(message, allOriginalAudios.get(0).getMessage());
+	}
+	
+	
+	@Test
+	public void testCreateOriginalText() {
+		assertEquals(0, service.getAllTexts().size());
+		assertEquals(0, service.getAllOriginalTexts().size());
+		
+		TraductionAppManager manager = service.createTraductionAppManager();
+		
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
+		Date date = new Date(c.getTimeInMillis());
+		Time time = new Time(c.getTimeInMillis());
+		Boolean withGoogle = true;
+		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		
+		String name = "English";
+		Language language = service.createLanguage(name, manager);
+
+		String department = "TI";
+		Person person = service.createPerson(department, conversation, language);
+		
+		String audioMessage = "blablabla";
+		Audio audio = service.createOriginalAudio(audioMessage, person);
+		
+		String textMessage = "BlaBlaBla";
+		
+		try {
+			service.createOriginalText(textMessage, person, audio);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		List<Text> allTexts = service.getAllTexts();
+		assertEquals(1, allTexts.size());
+		List<Text> allOriginalTexts = service.getAllOriginalTexts();
+		assertEquals(1, allOriginalTexts.size());
+		List<Text> allTranslatedTexts = service.getAllTranslatedTexts();
+		assertEquals(0, allTranslatedTexts.size());
+		assertEquals(textMessage, allOriginalTexts.get(0).getMessage());
+	}
+	
+	
+	@Test
+	public void testCreateTranslatedText() {
+		assertEquals(0, service.getAllTexts().size());
+		assertEquals(0, service.getAllOriginalTexts().size());
+		assertEquals(0, service.getAllTranslatedTexts().size());
+		
+		TraductionAppManager manager = service.createTraductionAppManager();
+		
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
+		Date date = new Date(c.getTimeInMillis());
+		Time time = new Time(c.getTimeInMillis());
+		Boolean withGoogle = true;
+		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		
+		String name = "English";
+		Language language = service.createLanguage(name, manager);
+
+		String department = "TI";
+		Person person = service.createPerson(department, conversation, language);
+		
+		String audioMessage = "blablabla";
+		Audio audio = service.createOriginalAudio(audioMessage, person);
+		
+		String textMessage = "BlaBlaBla";
+		Text originalText = service.createOriginalText(textMessage, person, audio);
+		
+		String translatedMessage = "BluBluBlu";
+		
+		try {
+			service.createTranslatedText(translatedMessage, person, originalText);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		List<Text> allTexts = service.getAllTexts();
+		assertEquals(2, allTexts.size());
+		List<Text> allOriginalTexts = service.getAllOriginalTexts();
+		assertEquals(1, allOriginalTexts.size());
+		List<Text> allTranslatedTexts = service.getAllTranslatedTexts();
+		assertEquals(1, allTranslatedTexts.size());
+		assertEquals(translatedMessage, allTranslatedTexts.get(0).getMessage());
+	}
+	
+	
+	@Test
+	public void testCreateTranslatedAudio() {
+		assertEquals(0, service.getAllAudios().size());
+		assertEquals(0, service.getAllOriginalAudios().size());
+		assertEquals(0, service.getAllTranslatedAudios().size());
+		
+		TraductionAppManager manager = service.createTraductionAppManager();
+		
+		Calendar c = Calendar.getInstance();
+		c.set(2019, Calendar.JUNE, 13, 9, 00, 0);
+		Date date = new Date(c.getTimeInMillis());
+		Time time = new Time(c.getTimeInMillis());
+		Boolean withGoogle = true;
+		Conversation conversation = service.createConversation(date, time, withGoogle, manager);
+		
+		String name = "English";
+		Language language = service.createLanguage(name, manager);
+
+		String department = "TI";
+		Person person = service.createPerson(department, conversation, language);
+		
+		String audioMessage = "blablabla";
+		Audio originalAudio = service.createOriginalAudio(audioMessage, person);
+		
+		String textMessage = "BlaBlaBla";
+		Text originalText = service.createOriginalText(textMessage, person, originalAudio);
+		
+		String translatedMessage = "BluBluBlu";
+		Text translatedText = service.createTranslatedText(translatedMessage, person, originalText);
+		
+		String translatedAudio = "blublublu";
+		
+		try {
+			service.createTranslatedAudio(translatedAudio, person, translatedText);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		List<Audio> allAudios = service.getAllAudios();
+		assertEquals(2, allAudios.size());
+		List<Audio> allOriginalAudios = service.getAllOriginalAudios();
+		assertEquals(1, allOriginalAudios.size());
+		List<Audio> allTranslatedAudios = service.getAllTranslatedAudios();
+		assertEquals(1, allTranslatedAudios.size());
+		assertEquals(translatedAudio, allTranslatedAudios.get(0).getMessage());
+	}
 }
