@@ -143,6 +143,9 @@ public class AppTraductionService {
 	 * 		adds survey to person */
 	@Transactional
 	public Survey createSurvey(int helpsWork, int replacesService, int rating, Person person) {
+		if(helpsWork < 0 || replacesService < 0 || rating < 0) {
+			throw new IllegalArgumentException("Ratings cannot be negative");
+		}
 		Survey survey = new Survey();
 		survey.setHelpsWork(helpsWork);
 		survey.setReplacesService(replacesService);
