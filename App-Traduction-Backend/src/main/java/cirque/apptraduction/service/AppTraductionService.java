@@ -388,7 +388,7 @@ public class AppTraductionService {
 	
 	
 	/* Transforms iterable list into arrayList */
-	private <T> List<T> toList(Iterable<T> iterable){
+	public <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {
 			resultList.add(t);
