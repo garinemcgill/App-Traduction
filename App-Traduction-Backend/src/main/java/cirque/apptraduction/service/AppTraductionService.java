@@ -305,6 +305,22 @@ public class AppTraductionService {
 	}
 	
 	
+	/*Gets an audio with its id*/
+	@Transactional
+	public Audio getAudio(int id) {
+		Audio audio = audioRepository.findAudioById(id);
+		return audio;		
+	}
+	
+	
+	/*Gets a text with its id*/
+	@Transactional
+	public Text getText(int id) {
+		Text text = textRepository.findTextById(id);
+		return text;		
+	}
+	
+	
 	/* Gets all audios */
 	@Transactional
 	public List<Audio> getAllAudios() {
