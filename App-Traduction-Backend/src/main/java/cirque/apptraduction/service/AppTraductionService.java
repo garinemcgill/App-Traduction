@@ -287,7 +287,23 @@ public class AppTraductionService {
 		Language language = languageRepository.findLanguageByName(name);
 		return language;		
 	}
+	
+	
+	/*Gets a conversation with its id*/
+	@Transactional
+	public Conversation getConversation(int id) {
+		Conversation conversation = conversationRepository.findConversationById(id);
+		return conversation;		
+	}
+	
 
+	/*Gets a person with its id*/
+	@Transactional
+	public Person getPerson(int id) {
+		Person person = personRepository.findPersonById(id);
+		return person;		
+	}
+	
 	
 	/* Gets all audios */
 	@Transactional
