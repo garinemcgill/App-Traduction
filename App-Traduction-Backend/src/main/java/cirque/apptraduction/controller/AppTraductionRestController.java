@@ -1,7 +1,11 @@
 package cirque.apptraduction.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -132,9 +136,136 @@ public class AppTraductionRestController {
 	
 	
 	
+	//*************************************************************************************************************//
+	//*********************************************GET LIST METHODS************************************************//
+	//*************************************************************************************************************//
+	
+	@GetMapping(value = { "/allConversations", "/allConversations/"})
+	public List<ConversationDto> viewAllConversations(){
+		List<ConversationDto> allConversations = new ArrayList<ConversationDto>();
+		Iterable<Conversation> conversations = service.getAllConversations();
+		
+		for (Conversation conversation : conversations) {
+			allConversations.add(convertToDto(conversation));
+		}
+		return allConversations;
+	}
 	
 	
+	@GetMapping(value = { "/allLanguages", "/allLanguages/"})
+	public List<LanguageDto> viewAllLanguages(){
+		List<LanguageDto> allLanguages = new ArrayList<LanguageDto>();
+		Iterable<Language> languages = service.getAllLanguages();
+		
+		for (Language language : languages) {
+			allLanguages.add(convertToDto(language));
+		}
+		return allLanguages;
+	}
 	
+	
+	@GetMapping(value = { "/allPersons", "/allPersons/"})
+	public List<PersonDto> viewAllPersons(){
+		List<PersonDto> allPersons = new ArrayList<PersonDto>();
+		Iterable<Person> persons = service.getAllPersons();
+		
+		for (Person person : persons) {
+			allPersons.add(convertToDto(person));
+		}
+		return allPersons;
+	}
+	
+	
+	@GetMapping(value = { "/allSurveys", "/allSurveys/"})
+	public List<SurveyDto> viewAllSurveys(){
+		List<SurveyDto> allSurveys = new ArrayList<SurveyDto>();
+		Iterable<Survey> surveys = service.getAllSurveys();
+		
+		for (Survey survey : surveys) {
+			allSurveys.add(convertToDto(survey));
+		}
+		return allSurveys;
+	}
+	
+	
+	@GetMapping(value = { "/allOriginalAudios", "/allOriginalAudios/"})
+	public List<AudioDto> viewAllOriginalAudios(){
+		List<AudioDto> allAudios = new ArrayList<AudioDto>();
+		Iterable<Audio> audios = service.getAllOriginalAudios();
+		
+		for (Audio audio : audios) {
+			allAudios.add(convertToDto(audio, true));
+		}
+		return allAudios;
+	}
+	
+	
+	@GetMapping(value = { "/allTranslatedAudios", "/allTranslatedAudios/"})
+	public List<AudioDto> viewAllTranslatedAudios(){
+		List<AudioDto> allAudios = new ArrayList<AudioDto>();
+		Iterable<Audio> audios = service.getAllTranslatedAudios();
+		
+		for (Audio audio : audios) {
+			allAudios.add(convertToDto(audio, false));
+		}
+		return allAudios;
+	}
+	
+	
+	@GetMapping(value = { "/allAudios", "/allAudios/"})
+	public List<AudioDto> viewAllAudios(){
+		List<AudioDto> allAudios = new ArrayList<AudioDto>();
+		Iterable<Audio> originalAudios = service.getAllOriginalAudios();
+		Iterable<Audio> translatedAudios = service.getAllTranslatedAudios();
+		
+		for (Audio audio : originalAudios) {
+			allAudios.add(convertToDto(audio, true));
+		}
+		for (Audio audio : translatedAudios) {
+			allAudios.add(convertToDto(audio, false));
+		}
+		return allAudios;
+	}
+	
+	
+	@GetMapping(value = { "/allOriginalTexts", "/allOriginalTexts/"})
+	public List<TextDto> viewAllOriginalTexts(){
+		List<TextDto> allTexts = new ArrayList<TextDto>();
+		Iterable<Text> texts = service.getAllOriginalTexts();
+		
+		for (Text text : texts) {
+			allTexts.add(convertToDto(text, true));
+		}
+		return allTexts;
+	}
+	
+	
+	@GetMapping(value = { "/allTranslatedTexts", "/allTranslatedTexts/"})
+	public List<TextDto> viewAllTranslatedTexts(){
+		List<TextDto> allTexts = new ArrayList<TextDto>();
+		Iterable<Text> texts = service.getAllTranslatedTexts();
+		
+		for (Text text : texts) {
+			allTexts.add(convertToDto(text, false));
+		}
+		return allTexts;
+	}
+	
+	
+	@GetMapping(value = { "/allTexts", "/allTexts/"})
+	public List<TextDto> viewAllTexts(){
+		List<TextDto> allTexts = new ArrayList<TextDto>();
+		Iterable<Text> originalTexts = service.getAllOriginalTexts();
+		Iterable<Text> translatedTexts = service.getAllTranslatedTexts();
+		
+		for (Text text : originalTexts) {
+			allTexts.add(convertToDto(text, true));
+		}
+		for (Text text : translatedTexts) {
+			allTexts.add(convertToDto(text, false));
+		}
+		return allTexts;
+	}
 	
 	
 	
