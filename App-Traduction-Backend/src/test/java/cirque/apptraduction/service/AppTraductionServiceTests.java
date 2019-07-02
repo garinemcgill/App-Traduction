@@ -3,8 +3,6 @@ package cirque.apptraduction.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 import java.util.Set;
 
