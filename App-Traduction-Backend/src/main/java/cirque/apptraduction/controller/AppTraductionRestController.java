@@ -278,7 +278,7 @@ public class AppTraductionRestController {
 		if (c == null) {
 			throw new IllegalArgumentException("There is no such Conversation!");
 		}
-		return new ConversationDto(c.getDate(), c.getTime(), c.getWithGoogle());
+		return new ConversationDto(c.getDate(), c.getTime(), c.getWithGoogle(), c.getId());
 	}
 	
 	
@@ -294,7 +294,8 @@ public class AppTraductionRestController {
 		if (p == null) {
 			throw new IllegalArgumentException("There is no such Person!");
 		}
-		return new PersonDto(p.getDepartment(), convertToDto(p.getConversation()), convertToDto(p.getLanguage()));
+		return new PersonDto(p.getDepartment(), convertToDto(p.getConversation()), 
+				convertToDto(p.getLanguage()), p.getId());
 	}
 	
 	
@@ -311,10 +312,11 @@ public class AppTraductionRestController {
 			throw new IllegalArgumentException("There is no such Audio!");
 		}
 		if (isOriginal) {
-			return new AudioDto(a.getMessage(), convertToDto(a.getPerson()));
+			return new AudioDto(a.getMessage(), convertToDto(a.getPerson()), a.getId());
 		}
 		else {
-			return new AudioDto(a.getMessage(), convertToDto(a.getPerson()), convertToDto(a.getMatchingText(), false));
+			return new AudioDto(a.getMessage(), convertToDto(a.getPerson()), 
+					convertToDto(a.getMatchingText(), false), a.getId());
 		}
 	}
 	
@@ -324,10 +326,12 @@ public class AppTraductionRestController {
 			throw new IllegalArgumentException("There is no such Text!");
 		}
 		if (isOriginal) {
-			return new TextDto(t.getMessage(), convertToDto(t.getPerson()), convertToDto(t.getMatchingAudio(), true));
+			return new TextDto(t.getMessage(), convertToDto(t.getPerson()), 
+					convertToDto(t.getMatchingAudio(), true), t.getId());
 		}
 		else {
-			return new TextDto(t.getMessage(), convertToDto(t.getPerson()), convertToDto(t.getTranslatedText(), true));
+			return new TextDto(t.getMessage(), convertToDto(t.getPerson()), 
+					convertToDto(t.getTranslatedText(), true), t.getId());
 		}
 	}
 	
