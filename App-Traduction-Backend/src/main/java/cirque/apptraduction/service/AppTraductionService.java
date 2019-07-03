@@ -277,6 +277,9 @@ public class AppTraductionService {
 	/* Gets the TraductionAppManager */
 	@Transactional
 	public TraductionAppManager getManager() {
+		if (toList(managerRepository.findAll()).size() == 0) {
+			return null;
+		}
 		return toList(managerRepository.findAll()).get(0);
 	}
 
