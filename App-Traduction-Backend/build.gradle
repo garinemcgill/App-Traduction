@@ -19,4 +19,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile 'com.google.apis:google-api-services-docs:v1-rev22-1.25.0'
+	compile 'com.google.cloud:google-cloud-speech:1.0.0'
 }
