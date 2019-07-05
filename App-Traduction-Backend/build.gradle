@@ -22,4 +22,5 @@ dependencies {
 	compile 'com.google.cloud:google-cloud-storage:1.81.0'
 	compile 'com.google.apis:google-api-services-docs:v1-rev22-1.25.0'
 	compile 'com.google.cloud:google-cloud-speech:1.0.0'
+	compile 'com.google.cloud:google-cloud-translate:1.79.0'
 }

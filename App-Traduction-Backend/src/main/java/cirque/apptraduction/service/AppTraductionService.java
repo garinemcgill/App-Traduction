@@ -34,6 +34,7 @@ import com.google.cloud.speech.v1.StreamingRecognizeRequest;
 import com.google.cloud.speech.v1.StreamingRecognizeResponse;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.protobuf.ByteString;
+import com.google.cloud.translate.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -45,6 +46,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cirque.apptraduction.Model.*;
+import cirque.apptraduction.Model.Language;
 import cirque.apptraduction.dao.*;
 
 @Service
@@ -485,7 +487,7 @@ public class AppTraductionService {
 	
 	
 	//*************************************************************************************************************//
-	//********************************************GOOGLE API CALLS*********************************************//
+	//****************************************GOOGLE API CALLS - SPEECH TO TEXT************************************//
 	//*************************************************************************************************************//
 	
 	
@@ -670,4 +672,30 @@ public class AppTraductionService {
 	
 	
 	
+	//*************************************************************************************************************//
+	//***********************************GOOGLE API CALLS - TEXT TO TEXT TRANSLATION*******************************//
+	//*************************************************************************************************************//
+	
+	
+	/** Performs microphone streaming speech recognition with a duration of 1 minute. */
+	public static void defaultTextTranslation(String text) {
+		Translate translate = TranslateOptions.getDefaultInstance().getService();
+
+		Translation translation = translate.translate(text);
+		System.out.printf("Translated Text:\n\t%s\n", translation.getTranslatedText());
+	}
+	
+	/** Performs microphone streaming speech recognition with a duration of 1 minute. */
+	public static void simpleTextTranslation(String text, String source, String target) {
+		Translate translate = TranslateOptions.getDefaultInstance().getService();
+		Translation translation =
+				translate.translate(
+						text,
+						Translate.TranslateOption.sourceLanguage(source),	//source = "es"
+						Translate.TranslateOption.targetLanguage(target),	//target = "de"
+						// Use "base" for standard edition, "nmt" for the premium model.
+						Translate.TranslateOption.model("nmt"));
+
+		System.out.printf("TranslatedText:\nText: %s\n", translation.getTranslatedText());
+	}
 }
